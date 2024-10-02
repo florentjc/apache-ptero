@@ -77,7 +77,7 @@ RUN mkdir -p /var/log/apache2 && \
     chown -R www-data:www-data /var/log/apache2 && \
     touch /var/log/apache2/error.log && \
     chown www-data:www-data /var/log/apache2/error.log
-    
+
 WORKDIR /home/container
 
 STOPSIGNAL SIGINT
@@ -85,4 +85,4 @@ STOPSIGNAL SIGINT
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-CMD /entrypoint.sh
+CMD ["/entrypoint.sh", "apachectl", "-D", "FOREGROUND"]
