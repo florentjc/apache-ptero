@@ -73,6 +73,8 @@ RUN apt-get update \
 RUN useradd -m -d /home/container/ -s /bin/bash container
 ENV USER=container HOME=/home/container
 
+RUN mkdir -p /var/log/apache2 && chown -R www-data:www-data /var/log/apache2
+
 WORKDIR /home/container
 
 STOPSIGNAL SIGINT
