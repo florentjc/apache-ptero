@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 # Installation d'Apache et PHP
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y apt-transport-https lsb-release ca-certificates wget apache2 \
+    && apt-get install -y apt-transport-https lsb-release ca-certificates wget apache2 iproute2 \
     && wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list \
     && apt-get update \
@@ -73,8 +73,11 @@ RUN apt-get update \
 RUN useradd -m -d /home/container/ -s /bin/bash container
 ENV USER=container HOME=/home/container
 
-RUN mkdir -p /var/log/apache2 && chown -R www-data:www-data /var/log/apache2
-
+RUN mkdir -p /var/log/apache2 && \
+    chown -R www-data:www-data /var/log/apache2 && \
+    touch /var/log/apache2/error.log && \
+    chown www-data:www-data /var/log/apache2/error.log
+    
 WORKDIR /home/container
 
 STOPSIGNAL SIGINT
