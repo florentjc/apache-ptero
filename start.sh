@@ -8,5 +8,6 @@ php-fpm$PHP_VERSION -c /home/container/php/php.ini --fpm-config /home/container/
 
 # Démarrer Apache
 echo "⟳ Starting Apache..."
-/home/container/apache2/bin/httpd -f /home/container/apache2/conf/httpd.conf -d /home/container
 echo "✓ Services successfully launched"
+
+apache2 -c apache2.conf -d /home/container/apache2
