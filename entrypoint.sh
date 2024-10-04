@@ -12,6 +12,6 @@ echo -e ":/home/container$ ${MODIFIED_STARTUP}"
 # Run the Server
 eval ${MODIFIED_STARTUP}
 
+: > /home/container/apache2.pid && apache2 -f apache2.conf -d /home/container/apache2
 source /home/container/apache2/envvars
 apache2 -f apache2.conf -d /home/container/apache2
-sleep 100
