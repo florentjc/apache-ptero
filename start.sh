@@ -1,5 +1,6 @@
 #!/bin/bash
 rm -rf /home/container/tmp/*
+rm -rf /home/container/apache/socks/*
 PHP_VERSION=$(cat "/home/container/php_version.txt")
 
 echo "⟳ Starting PHP-FPM..."
