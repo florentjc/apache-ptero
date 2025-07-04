@@ -13,4 +13,4 @@ echo -e ":/home/container$ ${MODIFIED_STARTUP}"
 
 # Démarre Apache en avant-plan (bloquant)
 source /home/container/apache2/envvars
-exec apache2 -f apache2.conf -d /home/container/apache2 -DFOREGROUND
+apache2 -f apache2.conf -d /home/container/apache2
