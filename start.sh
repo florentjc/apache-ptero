@@ -14,5 +14,3 @@ source /home/container/apache2/envvars
 apache2 -f apache2.conf -d /home/container/apache2 &
 
 echo "✓ Services successfully launched."
-
-tail -f /dev/null

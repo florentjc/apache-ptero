@@ -12,6 +12,3 @@ MODIFIED_STARTUP=$(echo -e "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 echo ":/home/container$ ${MODIFIED_STARTUP}"
 
 eval "${MODIFIED_STARTUP}"
-
-# Laisse un shell ouvert, sans bloquer
-exec bash --noprofile --norc
