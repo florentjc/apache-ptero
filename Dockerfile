@@ -1,6 +1,6 @@
 FROM debian:bookworm-slim
 
-ARG PHP_VERSION="8.3"
+ARG PHP_VERSION="8.0"
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -70,8 +70,9 @@ RUN apt-get update \
     && apt-get purge -y --auto-remove \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -d /home/container/ -s /bin/bash container
-ENV USER=container HOME=/home/container
+RUN useradd -m -d /home/container/ -s /bin/bash container \
+    && echo "USER=container" >> /etc/environment \
+    && echo "HOME=/home/container" >> /etc/environment
 
 WORKDIR /home/container
 
