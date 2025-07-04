@@ -1,18 +1,17 @@
 #!/bin/bash
-sleep 1
 
 cd /home/container
 
-# Make internal Docker IP address available to processes.
-INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2);exit}')
+# Récupérer l'IP interne Docker
+INTERNAL_IP=$(ip route get 1 | awk '{print $(NF-2); exit}')
 export INTERNAL_IP
 
-# Replace Startup Variables
-MODIFIED_STARTUP=$(echo -e ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
-echo -e ":/home/container$ ${MODIFIED_STARTUP}"
+# Préparer la commande STARTUP
+MODIFIED_STARTUP=$(echo -e "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
 
-# Run the Server
-eval ${MODIFIED_STARTUP}
+echo ":/home/container$ ${MODIFIED_STARTUP}"
 
-source /home/container/apache2/envvars
-apache2 -f apache2.conf -d /home/container/apache2
+eval "${MODIFIED_STARTUP}"
+
+# Laisse un shell ouvert, sans bloquer
+exec bash --noprofile --norc
