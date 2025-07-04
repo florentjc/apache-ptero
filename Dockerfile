@@ -1,6 +1,6 @@
 FROM debian:bookworm-slim
 
-ARG PHP_VERSION="8.0"
+ARG PHP_VERSION
 
 ENV DEBIAN_FRONTEND noninteractive
 
