@@ -11,6 +11,8 @@ export INTERNAL_IP
 MODIFIED_STARTUP=$(echo -e ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')
 echo -e ":/home/container$ ${MODIFIED_STARTUP}"
 
-# Démarre Apache en avant-plan (bloquant)
+# Run the Server
+eval ${MODIFIED_STARTUP}
+
 source /home/container/apache2/envvars
 apache2 -f apache2.conf -d /home/container/apache2
