@@ -10,11 +10,11 @@
     "description": "Apache is a free and open-source web server software that powers about 46% of the world's websites. The official name is Apache HTTP Server and it is maintained and developed by the Apache Software Foundation.",
     "features": null,
     "docker_images": {
-        "PHP 8.0": "florentjqs\/apache-ptero:php8.0",
-        "PHP 8.1": "florentjqs\/apache-ptero:php8.1",
-        "PHP 8.2": "florentjqs\/apache-ptero:php8.2",
+        "PHP 8.4": "florentjqs\/apache-ptero:php8.4",
         "PHP 8.3": "florentjqs\/apache-ptero:php8.3",
-        "PHP 8.4": "florentjqs\/apache-ptero:php8.4"
+        "PHP 8.2": "florentjqs\/apache-ptero:php8.2",
+        "PHP 8.1": "florentjqs\/apache-ptero:php8.1",
+        "PHP 8.0": "florentjqs\/apache-ptero:php8.0"
     },
     "file_denylist": [],
     "startup": "{{STARTUP_CMD}}",
