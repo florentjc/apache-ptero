@@ -1,15 +1,16 @@
 FROM debian:bookworm-slim
 
-ARG PHP_VERSION
+ARG PHP_VERSION="8.4"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-# Installation d'Apache et PHP
+# Apache, PHP and Node JS installation
 RUN apt-get update \
     && apt-get upgrade -y \
-    && apt-get install -y apt-transport-https lsb-release ca-certificates wget apache2 iproute2 \
+    && apt-get install -y apt-transport-https lsb-release ca-certificates wget curl gnupg apache2 iproute2 \
     && wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg \
     && echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | tee /etc/apt/sources.list.d/php.list \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         php${PHP_VERSION} \
@@ -67,18 +68,22 @@ RUN apt-get update \
         php${PHP_VERSION}-maxminddb \
         php${PHP_VERSION}-protobuf \
         php${PHP_VERSION}-OPcache \
+        composer \
+        nodejs \
+    && npm install -g npm@latest \
     && apt-get purge -y --auto-remove \
+    && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN useradd -m -d /home/container/ -s /bin/bash container \
-    && echo "USER=container" >> /etc/environment \
-    && echo "HOME=/home/container" >> /etc/environment
+RUN useradd -m -d /home/container/ -s /bin/bash container
+ENV USER=container HOME=/home/container
 
 WORKDIR /home/container
 
 STOPSIGNAL SIGINT
 
 COPY ./entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
+COPY ./shell.sh /shell.sh
+RUN chmod +x /entrypoint.sh /shell.sh
 
 CMD ["/entrypoint.sh"]
