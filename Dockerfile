@@ -3,6 +3,7 @@ FROM debian:bookworm-slim
 ARG PHP_VERSION="8.5"
 
 ENV DEBIAN_FRONTEND=noninteractive
+ENV COMPOSER_ALLOW_SUPERUSER=1
 
 # Apache, PHP and Node JS installation
 RUN apt-get update \
@@ -67,12 +68,13 @@ RUN apt-get update \
         php${PHP_VERSION}-inotify \
         php${PHP_VERSION}-maxminddb \
         php${PHP_VERSION}-protobuf \
-        composer \
         nodejs \
     && npm install -g npm@latest \
     && apt-get purge -y --auto-remove \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+    
+COPY --from=composer:2.10.2 /usr/bin/composer /usr/local/bin/composer
 
 RUN useradd -m -d /home/container/ -s /bin/bash container
 ENV USER=container
